@@ -45,6 +45,7 @@ describe("blackjack tests", () => {
         { number: 4, suit: "Clubs" },
       ];
       blackjack.initialiseGame(cards);
+      blackjack.printPlayerCards()
       assert.deepStrictEqual(blackjack.usedCards.length, 4);
     });
   });

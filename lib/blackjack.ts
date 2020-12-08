@@ -127,6 +127,20 @@ export default class Blackjack {
     this.initDealer(dealerCards);
   }
 
+  printCards(cards: Card[]): void {
+    cards.forEach((c) => {
+      console.log(c.number, "of", c.suit);
+    });
+  }
+
+  printPlayerCards(): void {
+    this.printCards(this.player);
+  }
+
+  printDealerCards(): void {
+    this.printCards(this.dealer);
+  }
+
   isBust(cards: Card[]): boolean {
     let score = this.sumCards(cards);
 
