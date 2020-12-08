@@ -74,7 +74,11 @@ export default class Blackjack {
   }
 
   checkCardIsAvailable(card: Card): boolean {
-    if (this.usedCards.includes(card)) return false;
+    for (let c of this.usedCards) {
+      if (card.number === c.number && card.suit === c.suit) {
+        return false;
+      }
+    }
     return true;
   }
 
@@ -84,6 +88,7 @@ export default class Blackjack {
 
   dealPlayer(card?: Card) {
     if (card) {
+      if (!this.checkCardIsAvailable(card)) return;
       this.player.push(card);
       this.addCardToUsed(card);
     } else {
@@ -125,6 +130,25 @@ export default class Blackjack {
   initialiseGame(playerCards?: Card[], dealerCards?: Card[]) {
     this.initPlayer(playerCards);
     this.initDealer(dealerCards);
+  }
+
+  playDealer(): void {
+    const dealerScore = this.sumCards(this.dealer);
+    console.log("============")
+    this.printDealerCards();
+    console.log("============")
+
+    if (this.isBust(this.dealer)) {
+      console.log("Dealer has busted with");
+      this.printDealerCards();
+      return;
+    } else if (dealerScore >= 17) {
+      console.log("Dealer has reached", dealerScore, "with");
+      this.printDealerCards();
+    } else {
+      this.dealDealer();
+      this.playDealer();
+    }
   }
 
   printCards(cards: Card[]): void {
