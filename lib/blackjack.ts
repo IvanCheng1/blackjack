@@ -27,14 +27,55 @@ export default class Blackjack {
   score: number;
   dealer: Card[];
   player: Card[];
+  usedCards: Card[];
 
   constructor() {
     this.score = 0;
     this.dealer = [];
     this.player = [];
+    this.usedCards = [];
   }
 
-  getScore() {
+  generateCard(): Card {
+    let numberIndex = Math.floor(Math.random() * 13);
+    let suitIndex = Math.floor(Math.random() * 4);
+
+    const card: Card = {
+      number: cardNumbers[numberIndex],
+      suit: suits[suitIndex],
+    };
+
+    if (this.usedCards.includes(card)) {
+      return this.generateCard();
+    }
+
+    this.usedCards.push(card);
+    return card;
+  }
+
+  shuffleDeck(): void {
+    this.usedCards = [];
+  }
+
+  dealPlayer(cards?: Card[]) {
+    if (cards) {
+      this.player = cards;
+    } else {
+      this.player.push(this.generateCard());
+      this.player.push(this.generateCard());
+    }
+  }
+
+  dealDealer(cards?: Card[]) {
+    if (cards) {
+      this.dealer = cards;
+    } else {
+      this.dealer.push(this.generateCard());
+      this.dealer.push(this.generateCard());
+    }
+  }
+
+  getScore(): number {
     return this.score;
   }
 }
