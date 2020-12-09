@@ -97,9 +97,17 @@ describe("blackjack tests", () => {
       const blackjack = new Blackjack();
 
       blackjack.initialiseGame();
-      blackjack.playDealer();
 
-      assert.strictEqual(false, false);
+      assert.strictEqual(blackjack.usedCards.length, 4);
+    });
+
+    it("play game", () => {
+      const blackjack = new Blackjack();
+
+      blackjack.brain("init")();
+      blackjack.brain("playDealer")();
+
+      assert.strictEqual(blackjack.player.length, 2);
     });
   });
 });

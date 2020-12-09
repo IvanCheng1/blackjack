@@ -44,12 +44,21 @@ export default class Blackjack {
   dealer: Card[];
   player: Card[];
   usedCards: Card[];
+  map: { init: () => void; playDealer: (input: string) => void };
 
   constructor() {
     this.score = 0;
     this.dealer = [];
     this.player = [];
     this.usedCards = [];
+    this.map = {
+      init: () => this.initialiseGame(),
+      playDealer: () => this.playDealer(),
+    };
+  }
+
+  brain(input: string) {
+    return this.map[input];
   }
 
   generateCard(): Card {
@@ -134,9 +143,9 @@ export default class Blackjack {
 
   playDealer(): void {
     const dealerScore = this.sumCards(this.dealer);
-    console.log("============")
-    this.printDealerCards();
-    console.log("============")
+    // console.log("Dealer score:", dealerScore);
+    // this.printDealerCards();
+    // console.log("=====================");
 
     if (this.isBust(this.dealer)) {
       console.log("Dealer has busted with");
@@ -189,7 +198,7 @@ export default class Blackjack {
     });
 
     if (sum > 21 && aExist) {
-      return sum - 11;
+      return sum - 10;
     }
 
     return sum;
