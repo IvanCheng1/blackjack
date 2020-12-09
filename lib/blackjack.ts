@@ -141,6 +141,15 @@ export default class Blackjack {
     this.initDealer(dealerCards);
   }
 
+  hitMePlayer(card?: Card): void {
+    this.dealPlayer(card);
+    this.printPlayerCards();
+  }
+
+  getPlayerCardsSum(): number {
+    return this.sumCards(this.player);
+  }
+
   playDealer(): void {
     const dealerScore = this.sumCards(this.dealer);
     // console.log("Dealer score:", dealerScore);

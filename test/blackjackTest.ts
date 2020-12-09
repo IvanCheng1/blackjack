@@ -103,11 +103,15 @@ describe("blackjack tests", () => {
 
     it("play game", () => {
       const blackjack = new Blackjack();
+      const initCards: Card[] = [
+        { number: 9, suit: "Spades" },
+        { number: 4, suit: "Clubs" },
+      ];
+      blackjack.initialiseGame(initCards);
+      const cardOne: Card = { number: 8, suit: "Spades" };
+      blackjack.hitMePlayer(cardOne);
 
-      blackjack.brain("init")();
-      blackjack.brain("playDealer")();
-
-      assert.strictEqual(blackjack.player.length, 2);
+      assert.strictEqual(blackjack.getPlayerCardsSum(), 21);
     });
   });
 });
